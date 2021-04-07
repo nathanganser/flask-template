@@ -9,7 +9,6 @@ load_dotenv()
 
 
 
-
 class Error(Exception):
     def __init__(self, error, status_code):
         self.error = error
@@ -60,7 +59,7 @@ def error(error):
         "success": False,
         'error': error.status_code,
         "message": error.error,
-        }), error.status_code
+    }), error.status_code
 
 
 if __name__ == '__main__':
