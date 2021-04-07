@@ -3,11 +3,11 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
 from dotenv import load_dotenv
-from models import GoogleAPI
+from models import Contacts
 
 load_dotenv()
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 db = SQLAlchemy(app)
 
@@ -23,6 +23,11 @@ class Error(Exception):
 def index():
   age = 25
   return f"Ceci est le premier serveur de Nathan, qui a {age} ans"
+
+@app.route('/contacts', methods=['GET', 'POST'])
+def contacts():
+  contacts = Contacts.query.all()
+  return jsonify(contacts)
 
 
 
